@@ -26,7 +26,7 @@ namespace LoggerScopeSample.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        public string Get()
         {
             using (_logger.BeginScope("Scope:{id}", Guid.NewGuid().ToString("N")))
             {
@@ -34,17 +34,9 @@ namespace LoggerScopeSample.Controllers
                 
                 var result = _service.Test();
                 _logger.LogTrace("result={result}", result);
-                var rng = new Random();
-                var weatherForecasts = Enumerable.Range(1, 5).Select(index => new WeatherForecast
-                                                 {
-                                                     Date = DateTime.Now.AddDays(index),
-                                                     TemperatureC = rng.Next(-20, 55),
-                                                     Summary = Summaries[rng.Next(Summaries.Length)]
-                                                 })
-                                                 .ToArray();
                 
                 _logger.LogTrace("end get");
-                return weatherForecasts;
+                return result;
             }
         }
     }
