@@ -28,14 +28,14 @@ namespace LoggerScopeSample.Controllers
         [HttpGet]
         public string Get()
         {
-            using (_logger.BeginScope("Scope:{id}", Guid.NewGuid().ToString("N")))
+            using (_logger.BeginScope("Scope Id:{id}", Guid.NewGuid().ToString("N")))
             {
                 _logger.LogTrace("start get");
-                
+
                 var result = _service.Test();
-                _logger.LogTrace("result={result}", result);
-                
-                _logger.LogTrace("end get");
+                _logger.LogDebug("result={result}", result);
+
+                _logger.LogDebug("end get");
                 return result;
             }
         }
